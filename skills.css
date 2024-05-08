@@ -1,0 +1,21 @@
+body {
+    background-color: #e8eff1;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+  }
+  #it-skills {
+    width: 80%;
+    margin: auto;
+    padding: 2rem;
+  }
+  .skill-card {
+    background-color: #ffffff;
+    border-left: 4px solid #5cb85c;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .skill-card h2 {
+    color: #5cb85c;
+  }

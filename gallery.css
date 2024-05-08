@@ -1,0 +1,29 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d84f9f;
+    margin: 0;
+    padding: 0;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image {
+    margin: 20px;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    border: 1px solid #ba0000;
+    border-radius: 5px;
+}
+
+p {
+    margin-top: 10px;
+}

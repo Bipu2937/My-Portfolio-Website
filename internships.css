@@ -1,0 +1,45 @@
+/* Using CSS Grid for layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+
+  /* Flexbox for alignment */
+  .flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* CSS Variables for consistent styling */
+  :root {
+    --primary-color: #345678;
+    --secondary-color: #ffcc00;
+  }
+  
+  .navbar {
+    background-color: var(--primary-color);
+  }
+  
+  .read-more {
+    background-color: var(--secondary-color);
+  }
+  
+  /* Advanced selectors */
+  :is(.navbar, .footer) a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* CSS Animation */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .content {
+    animation: fadeIn 1s ease-in-out;
+  }
+ 
