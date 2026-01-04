@@ -5,276 +5,755 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="mediaqueries.css" />
+  <title>Bipu | Cybersecurity & Software Developer</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bg-dark': '#080808',
+            'accent': '#00f2ff',
+            'secondary-accent': '#7000ff',
+            'glass': 'rgba(255, 255, 255, 0.02)',
+            'glass-border': 'rgba(255, 255, 255, 0.08)',
+          },
+          fontFamily: {
+            'unbounded': ['Unbounded', 'cursive'],
+            'inter': ['Inter', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'marquee': 'marquee 40s linear infinite',
+            'gradient': 'gradient 8s linear infinite',
+            'loading-bar': 'loading-bar 2s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+              '50%': { transform: 'translateY(-20px) rotate(2deg)' },
+            },
+            marquee: {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+            gradient: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+            },
+            'loading-bar': {
+              '0%': { transform: 'translateX(-100%)' },
+              '100%': { transform: 'translateX(200%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style type="text/tailwindcss">
+    @layer base {
+      body {
+        @apply bg-bg-dark text-white font-inter leading-relaxed overflow-x-hidden selection:bg-accent selection:text-black;
+      }
+      /* Custom cursor only on desktop with mouse */
+      @media (hover: hover) and (pointer: fine) {
+        body {
+          cursor: none;
+        }
+      }
+      h1, h2, h3, .logo, .title {
+        @apply font-unbounded uppercase tracking-tighter;
+      }
+      a, .btn, .icon, .details-container, .project-card, .sticker {
+        @apply transition-all duration-700;
+        transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .bg-clip-text {
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+    }
+    @layer components {
+      .btn-primary {
+        @apply px-10 py-5 rounded-full font-unbounded text-[10px] uppercase cursor-pointer border-none bg-accent text-black hover:bg-white hover:scale-105 active:scale-95 shadow-[0_0_50px_-10px_#00f2ff] tracking-[0.2em];
+      }
+      .btn-secondary {
+        @apply px-10 py-5 rounded-full font-unbounded text-[10px] uppercase cursor-pointer border border-glass-border bg-glass text-white/50 hover:border-accent hover:text-white hover:scale-105 active:scale-95 tracking-[0.2em];
+      }
+      .sticker {
+        @apply absolute px-5 py-2.5 rounded-lg font-unbounded text-[9px] tracking-[0.3em] backdrop-blur-3xl border border-glass-border whitespace-nowrap z-10 select-none cursor-default uppercase;
+      }
+      .glass-card {
+        @apply backdrop-blur-3xl bg-white/[0.02] border border-white/[0.05];
+      }
+      .vignette {
+        background: radial-gradient(circle, transparent 20%, rgba(8,8,8,0.8) 100%);
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+      .mask-image-fade {
+        mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+      }
+      .clip-path-slant {
+        clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+      }
+    }
+  </style>
+
+  <!-- GSAP & Lenis CDNs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 </head>
 
 <body>
-  <nav id="desktop-nav">
-    <div class="logo">Md Abu Saim Bipu</div>
-    <div>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="Awards">Awards</a></li>
-        <li><a href="Affiliations">Affiliations</a></li>
-      </ul>
+  <!-- Skip to Content Link (Accessibility) -->
+  <a href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[10001] focus:px-6 focus:py-3 focus:bg-accent focus:text-black focus:rounded-lg focus:font-unbounded focus:text-sm">Skip
+    to main content</a>
+
+  <!-- Cinematic Overlays -->
+  <div class="fixed inset-0 pointer-events-none z-[9999] mix-blend-overlay opacity-[0.15]"
+    style="background-image: url('https://grains.vercel.app/grain.png');"></div>
+  <div id="cursor-dot"
+    class="fixed w-1.5 h-1.5 bg-accent rounded-full pointer-events-none z-[10000] opacity-0 md:opacity-100"></div>
+  <div id="cursor-follower"
+    class="fixed w-8 h-8 border border-accent/30 rounded-full pointer-events-none z-[10000] mix-blend-difference hidden md:block">
+  </div>
+
+  <!-- Scroll Progress Indicator (Lenis-style) -->
+  <div class="fixed top-8 right-8 z-[9998] hidden md:block">
+    <svg width="60" height="60" class="rotate-[-90deg]">
+      <circle cx="30" cy="30" r="26" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none" />
+      <circle id="progress-circle" cx="30" cy="30" r="26" stroke="#00f2ff" stroke-width="2" fill="none"
+        stroke-dasharray="163.36" stroke-dashoffset="163.36" class="transition-all duration-100" />
+    </svg>
+    <div class="absolute inset-0 flex items-center justify-center">
+      <span id="progress-text" class="text-[10px] font-unbounded text-accent">0%</span>
     </div>
+  </div>
+
+  <nav id="desktop-nav"
+    class="flex justify-between items-center px-8 md:px-12 h-[10vh] fixed top-0 w-full z-[1000] bg-bg-dark/20 backdrop-blur-xl border-b border-glass-border">
+    <div class="logo text-lg font-black tracking-tighter cursor-pointer magnetic" data-strength="20">BIPU <span
+        class="text-accent">.</span></div>
+
+    <!-- Desktop Menu -->
+    <ul class="hidden md:flex gap-10 list-none items-center">
+      <li><a href="#about"
+          class="text-[9px] font-unbounded opacity-40 hover:opacity-100 uppercase tracking-[0.2em] transition-opacity magnetic"
+          data-strength="15">About</a></li>
+      <li><a href="#experience"
+          class="text-[9px] font-unbounded opacity-40 hover:opacity-100 uppercase tracking-[0.2em] transition-opacity magnetic"
+          data-strength="15">Experience</a></li>
+      <li><a href="#projects"
+          class="text-[9px] font-unbounded opacity-40 hover:opacity-100 uppercase tracking-[0.2em] transition-opacity magnetic"
+          data-strength="15">Projects</a></li>
+      <li><a href="#contact"
+          class="text-[9px] font-unbounded opacity-40 hover:opacity-100 uppercase tracking-[0.2em] transition-opacity magnetic"
+          data-strength="15">Contact</a></li>
+      <li><a href="contact.html"
+          class="px-8 py-2.5 bg-white text-black rounded-full text-[9px] font-unbounded uppercase tracking-[0.2em] hover:bg-accent transition-all duration-500 magnetic"
+          data-strength="25">Connect</a></li>
+    </ul>
+
+    <!-- Mobile Menu Button -->
+    <button class="md:hidden flex flex-col gap-1.5 z-[1100] magnetic" data-strength="30" onclick="toggleMenu()">
+      <span class="w-6 h-0.5 bg-white transition-all duration-300 menu-bar-1"></span>
+      <span class="w-6 h-0.5 bg-white transition-all duration-300 menu-bar-2"></span>
+    </button>
   </nav>
-  <nav id="hamburger-nav">
-    <div class="logo">Md Abu Saim Bipu</div>
-    <div class="hamburger-menu">
-      <div class="hamburger-icon" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <div class="menu-links">
-        <li><a href="#about" onclick="toggleMenu()">About</a></li>
-        <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-        <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-        <sli><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-          <sli><a href="#affiliations" onclick="toggleMenu()">Affiliations</a></li>
+
+  <!-- Mobile Overlay -->
+  <div id="mobile-menu"
+    class="fixed inset-0 bg-bg-dark z-[1050] flex flex-col items-center justify-center gap-12 transition-all duration-700 translate-x-full">
+    <ul class="flex flex-col gap-10 list-none items-center">
+      <li><a href="#about" class="text-3xl font-black uppercase tracking-tighter hover:text-accent"
+          onclick="toggleMenu()">About</a></li>
+      <li><a href="#experience" class="text-3xl font-black uppercase tracking-tighter hover:text-accent"
+          onclick="toggleMenu()">Experience</a></li>
+      <li><a href="#projects" class="text-3xl font-black uppercase tracking-tighter hover:text-accent"
+          onclick="toggleMenu()">Projects</a></li>
+      <li><a href="#contact" class="text-3xl font-black uppercase tracking-tighter hover:text-accent"
+          onclick="toggleMenu()">Contact</a></li>
+      <li><a href="contact.html"
+          class="px-10 py-4 bg-accent text-black rounded-full text-[10px] font-unbounded uppercase tracking-widest">Let's
+          Talk</a></li>
+    </ul>
+  </div>
+
+  <section id="hero" class="relative h-screen w-full overflow-hidden bg-bg-dark flex items-center">
+    <!-- Subtle Cinematic Background (Noise Only) -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(0,242,255,0.03),transparent_50%)]"></div>
+      <div
+        class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] opacity-10">
       </div>
     </div>
-  </nav>
-  <section id="profile">
-    <div class="section__pic-container">
-      <img src="./assets/profile-pic.png" alt="Md Abu Saim profile picture" />
+
+    <!-- Profile Image (Deep Blend) -->
+    <!-- Pushed right, deeply masked to create a pure black zone for text -->
+    <div class="absolute right-0 top-0 h-full w-[70%] md:w-[50%] z-0 pointer-events-none">
+      <!-- Strong Gradient Masks for seamless blend -->
+      <div class="absolute inset-0 bg-gradient-to-r from-bg-dark via-bg-dark/80 to-transparent z-10"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/40 to-transparent z-10"></div>
+      <img src="./bipuprofile.jpg" alt="Profile"
+        class="h-full w-full object-cover object-center md:object-right opacity-90 contrast-110 grayscale hover:grayscale-0 transition-all duration-1000">
     </div>
-    <div class="section__text">
-      <p class="section__text__p1">Hello, I'm</p>
-      <h1 class="title">Bipu</h1>
-      <p class="section__text__p2">IT Support Specialist</p>
-      <div class="btn-container">
-        <button class="btn btn-color-2" onclick="window.open('Bipu-Resume (2)-4.pdf')">
-          Download CV
-        </button>
-        <button class="btn btn-color-1" onclick="location.href='./#contact'">
-          Contact Info
-        </button>
+
+    <!-- Main Content (Clean Left Align) -->
+    <div class="relative z-10 container mx-auto px-6 md:px-12 h-full flex flex-col justify-center">
+
+      <div class="relative z-20 w-full max-w-7xl">
+        <!-- Minimal Status Badge -->
+        <div class="mb-8 reveal-text">
+          <div class="inline-flex items-center gap-3">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+            </span>
+            <span class="text-xs font-mono tracking-widest text-accent/80 uppercase">System Online // v2026.1</span>
+          </div>
+        </div>
+
+        <!-- Clean, Massive Headline -->
+        <h1
+          class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[0.9] text-white mb-8">
+          <span class="block reveal-text-stagger">Building</span>
+          <span
+            class="block reveal-text-stagger text-transparent bg-clip-text bg-gradient-to-r from-accent to-white">Digital</span>
+          <span class="block reveal-text-stagger">Fortresses</span>
+        </h1>
+
+        <!-- Subtext -->
+        <p
+          class="text-lg md:text-xl text-white/50 max-w-lg font-light leading-relaxed mb-12 reveal-text border-l border-white/20 pl-6">
+          Merging elite cybersecurity protocols with high-performance creative development.
+        </p>
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row gap-6 items-start reveal-text">
+          <button
+            class="px-10 py-4 bg-white text-black font-unbounded text-xs uppercase tracking-widest hover:bg-accent hover:scale-105 transition-all"
+            onclick="document.getElementById('projects').scrollIntoView()">
+            Explore Works
+          </button>
+          <button
+            class="px-10 py-4 border border-white/10 text-white font-unbounded text-xs uppercase tracking-widest hover:border-white hover:text-white transition-colors"
+            onclick="window.open('Bipu-Resume (2)-4.pdf')">
+            Download CV
+          </button>
+        </div>
       </div>
-      <div id="socials-container">
-        <img src="./assets/linkedin.png" alt="My LinkedIn profile" class="icon"
-          onclick="location.href='https://linkedin.com/'" />
-        <img src="./assets/github.png" alt="My Github profile" class="icon"
-          onclick="location.href='https://github.com/Bipu2937'" />
+    </div>
+
+    <!-- Minimal HUD Elements -->
+    <div class="absolute bottom-12 left-12 hidden md:block z-20 opacity-50">
+      <div class="font-mono text-[10px] space-y-1">
+        <div class="text-accent">LOCATION: SYDNEY_AU</div>
+        <div class="text-white/40">LAT: 33°51'S</div>
+        <div class="text-white/40">LNG: 151°12'E</div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-12 right-12 hidden md:block z-20 opacity-50">
+      <div class="font-mono text-[10px] text-right space-y-1">
+        <div class="text-accent">STATUS: SECURE</div>
+        <div class="text-white/40">ENCRYPTION: AES-256</div>
+        <div class="text-white/40">UPTIME: 99.9%</div>
       </div>
     </div>
   </section>
-  <section id="about">
-    <p class="section__text__p1">Get To Know More</p>
-    <h1 class="title">About Me</h1>
-    <div class="section-container">
-      <div class="section__pic-container">
-        <img src="./assets/about-pic.png" alt="Profile picture" class="about-pic" />
-      </div>
-      <div class="about-details-container">
-        <div class="about-containers">
-          <div class="details-container">
-            <img src="./assets/experience.png" alt="Experience icon" class="icon" />
-            <h3>Experience</h3>
-            <p>1+ years <br />Frontend Development</p>
+  <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-60 animate-bounce">
+    <span class="text-[8px] font-unbounded tracking-[0.3em] uppercase">Scroll</span>
+    <div class="w-px h-16 bg-gradient-to-b from-accent to-transparent"></div>
+  </div>
+  </main>
+  </section>
+
+  <!-- Skills Marquee Section -->
+  <div class="relative py-24 bg-white/0 overflow-hidden border-y border-glass-border">
+    <!-- Massive Background Text -->
+    <div
+      class="flex animate-marquee whitespace-nowrap gap-12 text-7xl md:text-9xl font-black opacity-[0.05] select-none pointer-events-none absolute top-1/2 -translate-y-1/2 blur-[2px]">
+      <span>PYTHON JAVASCRIPT SQL NODEJS BASH LINUX AWS SUPABASE FIGMA WIRESHARK</span>
+      <span>PYTHON JAVASCRIPT SQL NODEJS BASH LINUX AWS SUPABASE FIGMA WIRESHARK</span>
+    </div>
+    <!-- Foreground Skills -->
+    <div class="flex animate-marquee whitespace-nowrap gap-20 items-center relative z-10">
+      <div class="flex gap-20 items-center justify-around min-w-full px-10 h-32">
+        <span
+          class="text-3xl font-unbounded tracking-tighter flex items-center gap-6 group hover:text-accent transition-colors duration-300">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
           </div>
-          <div class="details-container">
-            <img src="./assets/education.png" alt="Education icon" class="icon" />
-            <h3>Education</h3>
-            <p>Bachelors of IT(Networking & Security)<br />Federation University, Australia</p>
+          PYTHON
+        </span>
+        <span
+          class="text-3xl font-unbounded tracking-tighter flex items-center gap-6 group hover:text-accent transition-colors duration-300">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl bg-secondary-accent/10 border border-secondary-accent/20 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-secondary-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          JAVASCRIPT
+        </span>
+        <span
+          class="text-3xl font-unbounded tracking-tighter flex items-center gap-6 group hover:text-accent transition-colors duration-300">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/10 border border-white/20 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7c-2 0-3 1-3 3z" />
+            </svg>
+          </div>
+          SQL
+        </span>
+        <span
+          class="text-3xl font-unbounded tracking-tighter flex items-center gap-6 group hover:text-accent transition-colors duration-300">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          SECURITY
+        </span>
+        <span
+          class="text-3xl font-unbounded tracking-tighter flex items-center gap-6 group hover:text-accent transition-colors duration-300">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/10 border border-white/20 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2" />
+            </svg>
+          </div>
+          LINUX
+        </span>
+      </div>
+      <div class="flex gap-20 items-center justify-around min-w-full px-10 h-32">
+        <!-- Duplicate for seamless loop -->
+        <span
+          class="text-3xl font-unbounded tracking-tighter flex items-center gap-6 group hover:text-accent transition-colors duration-300">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+          </div>
+          PYTHON
+        </span>
+        <span
+          class="text-3xl font-unbounded tracking-tighter flex items-center gap-6 group hover:text-accent transition-colors duration-300">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl bg-secondary-accent/10 border border-secondary-accent/20 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-secondary-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          JAVASCRIPT
+        </span>
+        <span
+          class="text-3xl font-unbounded tracking-tighter flex items-center gap-6 group hover:text-accent transition-colors duration-300">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/10 border border-white/20 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7c-2 0-3 1-3 3z" />
+            </svg>
+          </div>
+          SQL
+        </span>
+        <span
+          class="text-3xl font-unbounded tracking-tighter flex items-center gap-6 group hover:text-accent transition-colors duration-300">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          SECURITY
+        </span>
+        <span
+          class="text-3xl font-unbounded tracking-tighter flex items-center gap-6 group hover:text-accent transition-colors duration-300">
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/10 border border-white/20 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2" />
+            </svg>
+          </div>
+          LINUX
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <section id="about" class="min-h-screen py-32 relative">
+    <div class="container mx-auto px-6 md:px-12">
+      <!-- Section Header -->
+      <div class="mb-20">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-px bg-accent"></div>
+          <span class="text-[9px] font-unbounded tracking-[0.3em] text-accent/70 uppercase">About Me</span>
+        </div>
+        <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none">
+          More Than <br> Just Code
+        </h2>
+      </div>
+
+      <!-- Bento Grid Layout -->
+      <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-6 auto-rows-[minmax(180px,auto)]">
+
+        <!-- Large Quote Card -->
+        <div
+          class="md:col-span-6 lg:col-span-8 row-span-2 glass-card p-10 flex flex-col justify-between group hover:border-accent/30 transition-all duration-500">
+          <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mb-8">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+          </div>
+          <h3 class="text-3xl md:text-4xl lg:text-5xl font-black leading-tight uppercase">
+            "Architecture and security are not features; they are the <span class="text-accent">foundation</span>."
+          </h3>
+          <p class="text-white/40 mt-8 font-mono text-sm uppercase tracking-wider">The Philosophy</p>
+        </div>
+
+        <!-- Stat Card 1 -->
+        <div
+          class="md:col-span-3 lg:col-span-4 glass-card p-8 flex flex-col justify-center items-center text-center group hover:bg-white/5 transition-all duration-500 magnetic"
+          data-strength="20">
+          <span
+            class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-tr from-white to-white/20 group-hover:from-accent group-hover:to-secondary-accent transition-all duration-500">3+</span>
+          <span class="text-[10px] font-unbounded uppercase tracking-widest mt-4 text-white/50">Years Experience</span>
+        </div>
+
+        <!-- Tech Stack - Interactive Tags -->
+        <div class="md:col-span-3 lg:col-span-4 row-span-2 glass-card p-8 flex flex-col group overflow-hidden relative">
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-secondary-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+          </div>
+          <h4 class="text-[10px] font-unbounded uppercase tracking-widest text-white/50 mb-8 relative z-10">Arsenal</h4>
+          <div class="flex flex-wrap gap-2 relative z-10 content-start">
+            <span
+              class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 cursor-default">Python</span>
+            <span
+              class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 cursor-default">JavaScript</span>
+            <span
+              class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 cursor-default">React</span>
+            <span
+              class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 cursor-default">Node.js</span>
+            <span
+              class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 cursor-default">Next.js</span>
+            <span
+              class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 cursor-default">Tailwind</span>
+            <span
+              class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 cursor-default">PostgreSQL</span>
+            <span
+              class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 cursor-default">Cybersecurity</span>
+            <span
+              class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase hover:bg-accent hover:text-black hover:border-accent transition-all duration-300 cursor-default">Ethical
+              Hacking</span>
           </div>
         </div>
-        <div class="text-container">
-          <p>
-            Passionate front-end Back-end web developer with expertise in HTML, CSS, and JavaScript, Typescript, Python,
-            Linux, Tailwind-CSS, Sql.
-            Dedicated to creating visually appealing and user-friendly websites. Collaborative team
-            player with strong problem-solving skills. Constantly exploring new technologies and trends.
-            Outside of coding, enjoys hiking, photography, and staying connected with the developer community.
+
+        <!-- Focus Card -->
+        <div
+          class="md:col-span-6 lg:col-span-4 glass-card p-8 group hover:border-secondary-accent/50 transition-all duration-500">
+          <h4 class="text-[10px] font-unbounded uppercase tracking-widest text-white/50 mb-4">Core Focus</h4>
+          <ul class="space-y-4">
+            <li class="flex items-center gap-3 text-sm font-light text-white/80">
+              <span class="w-1.5 h-1.5 bg-accent rounded-full"></span> Secure Application Development
+            </li>
+            <li class="flex items-center gap-3 text-sm font-light text-white/80">
+              <span class="w-1.5 h-1.5 bg-secondary-accent rounded-full"></span> Vulnerability Assessment
+            </li>
+            <li class="flex items-center gap-3 text-sm font-light text-white/80">
+              <span class="w-1.5 h-1.5 bg-white rounded-full"></span> Modern UI/UX Engineering
+            </li>
+          </ul>
+        </div>
+
+        <!-- Social/Connect Small Card -->
+        <div
+          class="md:col-span-3 lg:col-span-4 glass-card p-6 flex items-center justify-between group hover:bg-white/10 transition-colors cursor-pointer"
+          onclick="document.getElementById('contact').scrollIntoView()">
+          <div>
+            <p class="text-xs uppercase font-bold text-white">Let's Connect</p>
+            <p class="text-[10px] text-white/50 font-unbounded mt-1">Start a discussion</p>
+          </div>
+          <div
+            class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+            <svg class="w-4 h-4 -rotate-45 group-hover:rotate-0 transition-transform duration-300" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section merged into About Bento Grid -->
+
+  <section id="projects" class="relative z-10 bg-bg-dark">
+    <!-- Section Header -->
+    <div class="container mx-auto px-6 md:px-12 py-20">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-px bg-accent"></div>
+        <span class="text-[9px] font-unbounded tracking-[0.3em] text-accent/70 uppercase">Selected Works</span>
+      </div>
+      <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-10">
+        Digital <br> Theater
+      </h2>
+    </div>
+
+    <!-- Project 1: Family Task Manager -->
+    <div
+      class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden border-t border-white/5 project-panel group">
+      <div class="absolute inset-0 z-0">
+        <img src="./assets/project-1.png"
+          class="w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-[1.5s] grayscale group-hover:grayscale-0"
+          alt="Family Task Manager">
+        <div class="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/80 to-transparent"></div>
+      </div>
+
+      <div class="container mx-auto px-6 md:px-12 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-end pb-20">
+        <div>
+          <div class="flex gap-4 mb-6">
+            <span
+              class="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-unbounded uppercase border border-white/20">React</span>
+            <span
+              class="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-unbounded uppercase border border-white/20">Firebase</span>
+          </div>
+          <h3 class="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-4 leading-none">Task <br> Manager
+          </h3>
+          <p class="text-xl text-white/60 font-light max-w-md">Simplifying complex family schedules with an intuitive,
+            real-time dashboard.</p>
+        </div>
+
+        <div class="flex flex-col gap-6 md:items-end">
+          <div class="bg-black/50 backdrop-blur-xl p-6 rounded-2xl border border-white/10 max-w-sm">
+            <p class="text-sm text-white/80 font-mono mb-4">"A game changer for household organization. Security meets
+              simplicity."</p>
+            <div class="flex items-center gap-4">
+              <a href="https://github.com/Bipu2937/family-task-manager"
+                class="text-[10px] font-unbounded uppercase tracking-widest hover:text-accent border-b border-transparent hover:border-accent pb-1 transition-all">View
+                Code</a>
+              <a href="https://family-task-manager1.web.app"
+                class="px-6 py-3 bg-white text-black rounded-full text-[10px] font-unbounded uppercase tracking-widest hover:bg-accent hover:scale-105 transition-all">Live
+                Demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2: My Portfolio -->
+    <div
+      class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden border-t border-white/5 project-panel group bg-bg-dark">
+      <div class="absolute inset-0 z-0">
+        <img src="./assets/project-2.png"
+          class="w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-[1.5s] grayscale group-hover:grayscale-0"
+          alt="Portfolio Website">
+        <div class="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/80 to-transparent"></div>
+      </div>
+
+      <div class="container mx-auto px-6 md:px-12 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-end pb-20">
+        <div>
+          <div class="flex gap-4 mb-6">
+            <span
+              class="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-unbounded uppercase border border-white/20">GSAP</span>
+            <span
+              class="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-unbounded uppercase border border-white/20">Tailwind</span>
+          </div>
+          <h3 class="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-4 leading-none text-white">The <br>
+            Portfolio</h3>
+          <p class="text-xl text-white/60 font-light max-w-md">An immersive digital experience showcasing technical
+            prowess and design philosophy.</p>
+        </div>
+
+        <div class="flex flex-col gap-6 md:items-end">
+          <div class="bg-black/50 backdrop-blur-xl p-6 rounded-2xl border border-white/10 max-w-sm">
+            <p class="text-sm text-white/80 font-mono mb-4">"Pushing the boundaries of web performance and cinematic
+              interaction."</p>
+            <div class="flex items-center gap-4">
+              <a href="https://github.com/Bipu2937/My-Portfolio-Website"
+                class="text-[10px] font-unbounded uppercase tracking-widest hover:text-accent border-b border-transparent hover:border-accent pb-1 transition-all">View
+                Code</a>
+              <a href="#"
+                class="px-6 py-3 bg-white text-black rounded-full text-[10px] font-unbounded uppercase tracking-widest hover:bg-accent hover:scale-105 transition-all">Current</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3: AI Watchdog -->
+    <div
+      class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden border-t border-white/5 project-panel group bg-bg-dark">
+      <div class="absolute inset-0 z-0">
+        <img src="./assets/ai-watchdog.png"
+          class="w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-[1.5s] grayscale group-hover:grayscale-0"
+          alt="AI Watchdog">
+        <div class="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/80 to-transparent"></div>
+      </div>
+
+      <div class="container mx-auto px-6 md:px-12 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-end pb-20">
+        <div>
+          <div class="flex gap-4 mb-6">
+            <span
+              class="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-unbounded uppercase border border-white/20">Python</span>
+            <span
+              class="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-unbounded uppercase border border-white/20">AI/ML</span>
+          </div>
+          <h3 class="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-4 leading-none">AI <br> Watchdog</h3>
+          <p class="text-xl text-white/60 font-light max-w-md">Automated security surveillance system powered by
+            computer vision.</p>
+        </div>
+
+        <div class="flex flex-col gap-6 md:items-end">
+          <div class="bg-black/50 backdrop-blur-xl p-6 rounded-2xl border border-white/10 max-w-sm">
+            <p class="text-sm text-white/80 font-mono mb-4">"Security that never sleeps. Intelligent threat detection in
+              real-time."</p>
+            <div class="flex items-center gap-4">
+              <a href="https://github.com/Bipu2937/AI-Watchdog"
+                class="text-[10px] font-unbounded uppercase tracking-widest hover:text-accent border-b border-transparent hover:border-accent pb-1 transition-all">View
+                Code</a>
+              <a href="https://github.com/Bipu2937/AI-Watchdog"
+                class="px-6 py-3 bg-white text-black rounded-full text-[10px] font-unbounded uppercase tracking-widest hover:bg-accent hover:scale-105 transition-all">Live
+                Demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Future-Ready Mega Footer -->
+  <footer id="contact" class="relative z-50 bg-black pt-32 pb-12 overflow-hidden">
+    <!-- HUD Overlay -->
+    <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-50">
+    </div>
+    <div class="absolute top-0 right-0 p-4 font-mono text-[10px] text-accent/50 hidden md:block">SYSTEM: ONLINE</div>
+
+    <!-- Background Grid -->
+    <div
+      class="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20 pointer-events-none">
+    </div>
+
+    <div class="container mx-auto px-6 md:px-12 relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-24 mb-24">
+
+        <!-- Branding & Vision -->
+        <div class="lg:col-span-5 space-y-8">
+          <a href="#" class="block text-4xl font-black tracking-tighter uppercase group">
+            BIPU<span class="text-accent group-hover:animate-pulse">_</span>
+          </a>
+          <p class="text-2xl font-light leading-relaxed text-white/80 max-w-md">
+            Engineering the <span class="text-white font-normal border-b border-accent/30">next generation</span> of
+            secure digital experiences.
           </p>
+          <div class="flex gap-4 pt-4">
+            <a href="https://github.com/Bipu2937"
+              class="group relative px-6 py-3 bg-white/5 border border-white/10 rounded-lg overflow-hidden transition-all hover:border-accent">
+              <div
+                class="absolute inset-0 bg-accent/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              </div>
+              <span
+                class="relative text-xs font-unbounded uppercase tracking-widest group-hover:text-accent">GitHub</span>
+            </a>
+            <a href="https://linkedin.com/"
+              class="group relative px-6 py-3 bg-white/5 border border-white/10 rounded-lg overflow-hidden transition-all hover:border-accent">
+              <div
+                class="absolute inset-0 bg-accent/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              </div>
+              <span
+                class="relative text-xs font-unbounded uppercase tracking-widest group-hover:text-accent">LinkedIn</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Navigation Matrix -->
+        <div class="lg:col-span-3 space-y-8">
+          <h4 class="font-unbounded text-xs uppercase tracking-[0.2em] text-accent/50">Coordinates</h4>
+          <ul class="space-y-4">
+            <li><a href="#hero"
+                class="text-white/60 hover:text-white hover:translate-x-2 transition-all block text-sm">/ Home</a></li>
+            <li><a href="#about"
+                class="text-white/60 hover:text-white hover:translate-x-2 transition-all block text-sm">/ About</a></li>
+            <li><a href="#projects"
+                class="text-white/60 hover:text-white hover:translate-x-2 transition-all block text-sm">/ Selected
+                Works</a></li>
+            <li><a href="Bipu-Resume (2)-4.pdf"
+                class="text-white/60 hover:text-white hover:translate-x-2 transition-all block text-sm">/
+                Resume_v2.0</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter / Connect -->
+        <div class="lg:col-span-4 space-y-8">
+          <h4 class="font-unbounded text-xs uppercase tracking-[0.2em] text-accent/50">Transmission</h4>
+          <p class="text-sm text-white/50">Join the secure channel. No spam, just logic.</p>
+          <form class="relative group">
+            <input type="email" placeholder="ENTER EMAIL ADDRESS"
+              class="w-full bg-transparent border-b border-white/20 py-4 text-sm focus:outline-none focus:border-accent transition-colors font-mono text-uppercase">
+            <button type="submit"
+              class="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-unbounded uppercase tracking-widest hover:text-accent transition-colors">
+              Initialize ->
+            </button>
+          </form>
+          <div class="pt-8">
+            <a href="mailto:mdabusaimbipu@gmail.com"
+              class="text-lg font-black tracking-tight hover:text-accent transition-colors">MDABUSAIMBIPU@GMAIL.COM</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 opacity-40">
+        <div class="font-mono text-[10px] uppercase">
+          ID: 2026-PORTFOLIO // SECURE
+        </div>
+        <div class="font-mono text-[10px] uppercase">
+          Designed & Built by Bipu
         </div>
       </div>
     </div>
-    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#experience'" />
-  </section>
-  <section id="experience">
-    <p class="section__text__p1">Explore My</p>
-    <h1 class="title">Experience</h1>
-    <div class="experience-details-container">
-      <div class="about-containers">
-        <div class="details-container">
-          <h2 class="experience-sub-title">Frontend Development</h2>
-          <div class="article-container">
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>HTML</h3>
-                <p>Experienced</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>CSS</h3>
-                <p>Experienced</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>SASS</h3>
-                <p>Intermediate</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>JavaScript</h3>
-                <p>Basic</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>TypeScript</h3>
-                <p>Basic</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Material UI</h3>
-                <p>Intermediate</p>
-              </div>
-            </article>
-          </div>
-        </div>
-        <div class="details-container">
-          <h2 class="experience-sub-title">Frontend Development</h2>
-          <div class="article-container">
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>PostgreSQL</h3>
-                <p>Basic</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Node JS</h3>
-                <p>Intermediate</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Express JS</h3>
-                <p>Intermediate</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Git</h3>
-                <p>Intermediate</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </div>
-    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#projects'" />
-  </section>
-  <section id="projects">
-    <p class="section__text__p1">Browse My Recent</p>
-    <h1 class="title">Projects</h1>
-    <div class="experience-details-container">
-      <div class="about-containers">
-        <div class="details-container color-container">
-          <div class="article-container">
-            <img src="./assets/project-1.png" alt="Project 1" class="project-img" />
-          </div>
-          <h2 class="experience-sub-title project-title">Project One</h2>
-          <div class="btn-container">
-            <button class="btn btn-color-2 project-btn"
-              onclick="location.href='https://github.com/Bipu2937/family-task-manager'">
-              Github
-            </button>
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://family-task-manager1.web.app'">
-              Live Demo
-            </button>
-          </div>
-        </div>
-        <div class="details-container color-container">
-          <div class="article-container">
-            <img src="./assets/project-2.png" alt="Project 2" class="project-img" />
-          </div>
-          <h2 class="experience-sub-title project-title">Project Two</h2>
-          <div class="btn-container">
-            <button class="btn btn-color-2 project-btn"
-              onclick="location.href='https://github.com/Bipu2937/My-Portfolio-Website'">
-              Github
-            </button>
-            <button class="btn btn-color-2 project-btn" onclick="location.href='www.mdabusaim.com'">
-              Live Demo
-            </button>
-          </div>
-        </div>
-        <div class="details-container color-container">
-          <div class="article-container">
-            <img src="./assets/ai-watchdog.png" alt="AI Watchdog Project" class="project-img" />
-          </div>
-          <h2 class="experience-sub-title project-title">AI Watchdog</h2>
-          <div class="btn-container">
-            <button class="btn btn-color-2 project-btn"
-              onclick="location.href='https://github.com/Bipu2937/AI-Watchdog'">
-              Github
-            </button>
-            <button class="btn btn-color-2 project-btn"
-              onclick="location.href='https://github.com/Bipu2937/AI-Watchdog'">
-              Live Demo
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#contact'" />
-  </section>
-  <section id="contact">
-    <p class="section__text__p1">Get in Touch</p>
-    <h1 class="title">Contact Me</h1>
-    <div class="contact-info-upper-container">
-      <div class="contact-info-container">
-        <img src="./assets/email.png" alt="Email icon" class="icon contact-icon email-icon" />
-        <p><a href="mailto:examplemail@gmail.com">mdabusaimbipu@gmail.com</a></p>
-      </div>
-      <div class="contact-info-container">
-        <img src="./assets/linkedin.png" alt="LinkedIn icon" class="icon contact-icon" />
-        <p><a href="https://www.linkedin.com/in/md-abu-saim-bipu-663993272">Way Of Contact</a></p>
-      </div>
-      <div class="contact-info-container">
-        <img src="./assets/education.png" alt="Company icon" class="icon contact-icon" />
-        <p><a href="https://www.fortnix.app">Fortnix.app</a> | <a
-            href="https://www.linkedin.com/company/fortnix">LinkedIn</a></p>
-      </div>
-    </div>
-  </section>
-  <footer>
-    <nav>
-      <div class="nav-links-container">
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
-    <p>Copyright &#169; 2024 Md Abu Saim Bipu. All Rights Reserved.</p>
   </footer>
+
   <script src="script.js"></script>
 </body>
 
 </html>
+```

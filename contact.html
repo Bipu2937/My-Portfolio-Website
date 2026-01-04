@@ -1,28 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-bg-dark text-white font-inter overflow-hidden">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Md Abu Saim Bipu</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect | Md Abu Saim Bipu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bg-dark': '#080808',
+            'accent': '#00f2ff',
+            'secondary-accent': '#7000ff',
+            'glass': 'rgba(255, 255, 255, 0.02)',
+            'glass-border': 'rgba(255, 255, 255, 0.08)',
+          },
+          fontFamily: {
+            'unbounded': ['Unbounded', 'cursive'],
+            'inter': ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
-<body>
-  <section id="profile">
-    <div class="section-container" style="flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-      <div class="section__pic-container">
-        <img src="bipuprofile.jpg" alt="Profile Picture" style="border-radius: 50%; width: 160px; height: 160px; object-fit: cover;" />
+
+<body class="selection:bg-accent selection:text-black">
+  <div class="absolute top-1/4 left-1/4 w-[50vw] h-[50vw] bg-accent/5 rounded-full blur-[120px] pointer-events-none">
+  </div>
+
+  <section id="profile" class="h-screen m-0 flex flex-col items-center justify-center text-center p-6 relative z-10">
+    <div class="w-full max-w-xl">
+      <div class="section__pic-container mb-12 flex justify-center relative">
+        <div class="absolute inset-0 bg-accent/20 rounded-full blur-2xl animate-pulse"></div>
+        <img src="bipuprofile.jpg" alt="Profile Picture"
+          class="relative rounded-full w-44 h-44 object-cover border-2 border-glass-border grayscale hover:grayscale-0 transition-all duration-700" />
       </div>
-      <h1 class="title">Md Abu Saim Bipu</h1>
-      <p class="section__text__p2">An average human 🤍</p>
-      <div class="btn-container" style="flex-direction: column; align-items: center;">
-        <a class="btn btn-color-2" href="tel:+61420378114">Phone Number</a>
-        <a class="btn btn-color-2" href="mailto:mdabusaimbipu@gmail.com">Email</a>
-        <a class="btn btn-color-2" href="https://www.linkedin.com/in/md-abu-saim-bipu-663993272">LinkedIn</a>
-        <a class="btn btn-color-2" href="https://instagram.com/md_abu_saim_bipu?igshid=OGQ5ZDc2ODk2ZA==">Instagram</a>
-        <a class="btn btn-color-2" href="https://t.me/abusaimbipu">Telegram</a>
-        <a class="btn btn-color-2" href="https://wa.me/qr/FDHYDKWKELGOH1">WhatsApp</a>
+      <p class="font-unbounded text-[10px] tracking-[8px] text-accent mb-4 uppercase opacity-0 reveal">Let's Connect</p>
+      <h1
+        class="font-unbounded text-4xl md:text-5xl lg:text-6xl text-white font-black uppercase tracking-tighter mb-4 opacity-0 reveal">
+        MD ABU SAIM BIPU</h1>
+
+      <div class="flex flex-col gap-4 mt-12 w-full opacity-0 reveal-links">
+        <a class="w-full py-5 px-10 font-unbounded text-[10px] uppercase cursor-pointer transition-all duration-500 bg-glass text-white border border-glass-border rounded-full hover:border-accent hover:bg-white hover:text-black hover:scale-105 active:scale-95 shadow-sm hover:shadow-[0_0_30px_-5px_#00f2ff]"
+          href="tel:+61420378114">Voice Call</a>
+        <a class="w-full py-5 px-10 font-unbounded text-[10px] uppercase cursor-pointer transition-all duration-500 bg-glass text-white border border-glass-border rounded-full hover:border-accent hover:bg-white hover:text-black hover:scale-105 active:scale-95 shadow-sm hover:shadow-[0_0_30px_-5px_#00f2ff]"
+          href="mailto:mdabusaimbipu@gmail.com">Digital Mail</a>
+        <a class="w-full py-5 px-10 font-unbounded text-[10px] uppercase cursor-pointer transition-all duration-500 bg-glass text-white border border-glass-border rounded-full hover:border-accent hover:bg-white hover:text-black hover:scale-105 active:scale-95 shadow-sm hover:shadow-[0_0_30px_-5px_#00f2ff]"
+          href="https://www.linkedin.com/in/md-abu-saim-bipu-663993272">Professional Network</a>
+        <a class="w-full py-5 px-10 font-unbounded text-[10px] uppercase cursor-pointer transition-all duration-500 bg-glass text-white border border-glass-border rounded-full hover:border-accent hover:bg-white hover:text-black hover:scale-105 active:scale-95 shadow-sm hover:shadow-[0_0_30px_-5px_#00f2ff]"
+          href="https://instagram.com/md_abu_saim_bipu?igshid=OGQ5ZDc2ODk2ZA==">Social Orbit</a>
       </div>
+
+      <a href="index.html"
+        class="inline-block mt-16 text-white/30 font-unbounded text-[10px] tracking-widest no-underline border-b border-white/10 hover:border-accent hover:text-accent transition-all duration-500 opacity-0 reveal">←
+        BACK TO HOME</a>
     </div>
   </section>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      gsap.from(".section__pic-container", { scale: 0.5, opacity: 0, duration: 1.5, ease: "expo.out" });
+      gsap.to(".reveal", { opacity: 1, y: 0, duration: 1, stagger: 0.2, delay: 0.5, ease: "power3.out" });
+      gsap.to(".reveal-links", { opacity: 1, duration: 1, delay: 1 });
+      gsap.from("a.w-full", { y: 20, opacity: 0, duration: 1, stagger: 0.1, delay: 1.2, ease: "power4.out" });
+    });
+  </script>
 </body>
+
 </html>
