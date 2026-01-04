@@ -153,36 +153,42 @@
     </div>
   </div>
 
-  <nav id="desktop-nav"
-    class="flex justify-between items-center px-8 md:px-12 h-[10vh] fixed top-0 w-full z-[1000] bg-bg-dark/20 backdrop-blur-xl border-b border-glass-border">
-    <div class="logo text-lg font-black tracking-tighter cursor-pointer magnetic" data-strength="20">BIPU <span
-        class="text-accent">.</span></div>
+  <!-- Deconstructed Floating Header -->
 
-    <!-- Desktop Menu -->
-    <ul class="hidden md:flex gap-10 list-none items-center">
-      <li><a href="#about"
-          class="text-[9px] font-unbounded opacity-40 hover:opacity-100 uppercase tracking-[0.2em] transition-opacity magnetic"
-          data-strength="15">About</a></li>
-      <li><a href="#experience"
-          class="text-[9px] font-unbounded opacity-40 hover:opacity-100 uppercase tracking-[0.2em] transition-opacity magnetic"
-          data-strength="15">Experience</a></li>
-      <li><a href="#projects"
-          class="text-[9px] font-unbounded opacity-40 hover:opacity-100 uppercase tracking-[0.2em] transition-opacity magnetic"
-          data-strength="15">Projects</a></li>
-      <li><a href="#contact"
-          class="text-[9px] font-unbounded opacity-40 hover:opacity-100 uppercase tracking-[0.2em] transition-opacity magnetic"
-          data-strength="15">Contact</a></li>
-      <li><a href="contact.html"
-          class="px-8 py-2.5 bg-white text-black rounded-full text-[9px] font-unbounded uppercase tracking-[0.2em] hover:bg-accent transition-all duration-500 magnetic"
-          data-strength="25">Connect</a></li>
-    </ul>
+  <!-- Logo (Fixed Top Left) -->
+  <a href="#"
+    class="fixed top-8 left-8 z-[1000] mix-blend-difference text-xl font-black tracking-tighter cursor-pointer hover:text-accent transition-colors">
+    BIPU <span class="text-accent">.</span> // DEV
+  </a>
 
-    <!-- Mobile Menu Button -->
-    <button class="md:hidden flex flex-col gap-1.5 z-[1100] magnetic" data-strength="30" onclick="toggleMenu()">
-      <span class="w-6 h-0.5 bg-white transition-all duration-300 menu-bar-1"></span>
-      <span class="w-6 h-0.5 bg-white transition-all duration-300 menu-bar-2"></span>
-    </button>
+  <!-- Nav Pill (Fixed Top Center - Desktop) -->
+  <nav
+    class="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 px-2 py-2 bg-black/20 backdrop-blur-md border border-white/5 rounded-full z-[1000] items-center">
+    <div class="px-6 py-2 rounded-full hover:bg-white/5 transition-all cursor-pointer">
+      <a href="#about"
+        class="text-[10px] font-unbounded text-white/70 hover:text-accent uppercase tracking-widest transition-colors">About</a>
+    </div>
+    <div class="px-6 py-2 rounded-full hover:bg-white/5 transition-all cursor-pointer">
+      <a href="#projects"
+        class="text-[10px] font-unbounded text-white/70 hover:text-accent uppercase tracking-widest transition-colors">Selected
+        Works</a>
+    </div>
   </nav>
+
+  <!-- Connect CTA (Fixed Top Right - Desktop) -->
+  <div class="hidden md:flex fixed top-6 right-8 z-[1000]">
+    <a href="#contact"
+      class="px-6 py-3 bg-white text-black rounded-full text-[10px] font-unbounded uppercase tracking-widest hover:bg-accent hover:scale-105 transition-all shadow-[0_0_20px_-5px_white]">
+      Let's Talk
+    </a>
+  </div>
+
+  <!-- Mobile Menu Button (Fixed Top Right) -->
+  <button class="md:hidden fixed top-8 right-8 flex flex-col gap-1.5 z-[1100] mix-blend-difference"
+    onclick="toggleMenu()">
+    <span class="w-8 h-0.5 bg-white transition-all duration-300 menu-bar-1"></span>
+    <span class="w-8 h-0.5 bg-white transition-all duration-300 menu-bar-2"></span>
+  </button>
 
   <!-- Mobile Overlay -->
   <div id="mobile-menu"
@@ -190,14 +196,13 @@
     <ul class="flex flex-col gap-10 list-none items-center">
       <li><a href="#about" class="text-3xl font-black uppercase tracking-tighter hover:text-accent"
           onclick="toggleMenu()">About</a></li>
-      <li><a href="#experience" class="text-3xl font-black uppercase tracking-tighter hover:text-accent"
-          onclick="toggleMenu()">Experience</a></li>
       <li><a href="#projects" class="text-3xl font-black uppercase tracking-tighter hover:text-accent"
-          onclick="toggleMenu()">Projects</a></li>
+          onclick="toggleMenu()">Works</a></li>
       <li><a href="#contact" class="text-3xl font-black uppercase tracking-tighter hover:text-accent"
           onclick="toggleMenu()">Contact</a></li>
       <li><a href="contact.html"
-          class="px-10 py-4 bg-accent text-black rounded-full text-[10px] font-unbounded uppercase tracking-widest">Let's
+          class="px-10 py-4 bg-accent text-black rounded-full text-[10px] font-unbounded uppercase tracking-widest"
+          onclick="toggleMenu()">Let's
           Talk</a></li>
     </ul>
   </div>
